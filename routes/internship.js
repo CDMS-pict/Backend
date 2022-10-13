@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const Internship = require("../models/Internship");
 const Students = require("../models/Students");
+const cloudinary = require("../utils/cloudinary");
+// const fileUpload = require('express-fileupload')
 
 
 // add internship data
@@ -16,11 +18,15 @@ router.post("/newInternship", async (req, res) => {
       duration,
       role,
       desc,
-      offer_letter_url,
       student_id,
       student_name,
       student_div
     } = req.body;
+    const file = req.files.offer_letter;
+    const studentup = await Students.findOne({id: student_id})
+    const result = await cloudinary.uploader.upload(file.tempFilePath ,{
+      folder: studentup.fullname
+    })
     const newINternship = new Internship({
       company_name,
       start_date,
@@ -28,11 +34,15 @@ router.post("/newInternship", async (req, res) => {
       duration,
       role,
       desc,
-      offer_letter_url,
+      offer_letter : {
+        public_id: result.public_id,
+        url: result.secure_url
+      },
       student_id,
       student_name,
       student_div
     });
+    
     const internship = await newINternship.save();
     await Students.findByIdAndUpdate({_id: internship.student_id},{
       $push:{

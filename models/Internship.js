@@ -25,20 +25,31 @@ var InternshipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    offer_letter_url: {
-      type: String,
-      required: true,
+    offer_letter: {
+      public_id: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      },
     },
     letter_of_complition: {
-      type: String,
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
     student_name: {
       type: String,
-      required: true
+      required: true,
     },
     student_div: {
       type: String,
-      required: true
+      required: true,
     },
   },
   { timestamps: true }
