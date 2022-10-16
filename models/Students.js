@@ -66,6 +66,9 @@ var StudentSchema = new mongoose.Schema(
     DOB:{
       type: Date
     },
+    blood_grp:{
+      type:String
+    },
     mobile_no:{
       type: Number
     },
@@ -75,17 +78,60 @@ var StudentSchema = new mongoose.Schema(
     category:{
       type: String
     },
-    college_name:{
+    pan:{
       type:String
     },
-    pan:{
+    aadhar:{
       type:String
     }
     ,
+    PWD:{
+      type:String,
+    },
     intership_ids:{
       type:Array,
       default: []
+    },
+
+    father_name:{
+      type:String,
+    },
+    father_occupation:{
+      type:String
+    },
+    father_contact:{
+      type:String
+    },
+    father_mail:{
+      type:String
+    },
+
+    mother_name:{
+      type:String,
+    },
+    mother_occupation:{
+      type:String
+    },
+    mother_contact:{
+      type:String
+    },
+    mother_mail:{
+      type:String
+    },
+
+    tenth_p_c:{
+      type:String
+    },
+    twelth_p_c:{
+      type:String
+    },
+    tenth_p_c_url:{
+      type:String
+    },
+    twelth_p_c_url:{
+      type:String
     }
+
   },
   {
     timestamps: true,

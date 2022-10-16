@@ -5,28 +5,27 @@ const Students = require("../models/Students");
 const cloudinary = require("../utils/cloudinary");
 // const fileUpload = require('express-fileupload')
 
-
 // add internship data
 
 router.post("/newInternship", async (req, res) => {
+  const {
+    company_name,
+    start_date,
+    end_date,
+    duration,
+    role,
+    desc,
+    offer_letter,
+    student_id,
+    student_name,
+    student_div,
+  } = req.body;
   try {
-    
-    const {
-      company_name,
-      start_date,
-      end_date,
-      duration,
-      role,
-      desc,
-      student_id,
-      student_name,
-      student_div
-    } = req.body;
-    const file = req.files.offer_letter;
-    const studentup = await Students.findOne({id: student_id})
-    const result = await cloudinary.uploader.upload(file.tempFilePath ,{
-      folder: studentup.fullname
-    })
+    const file = offer_letter;
+    const studentup = await Students.findOne({ id: student_id });
+    const result = await cloudinary.uploader.upload(file, {
+      folder: studentup.fullname + student_id + "internship",
+    });
     const newINternship = new Internship({
       company_name,
       start_date,
@@ -34,32 +33,35 @@ router.post("/newInternship", async (req, res) => {
       duration,
       role,
       desc,
-      offer_letter : {
+      offer_letter: {
         public_id: result.public_id,
-        url: result.secure_url
+        url: result.secure_url,
       },
       student_id,
       student_name,
-      student_div
+      student_div,
     });
-    
+
     const internship = await newINternship.save();
-    await Students.findByIdAndUpdate({_id: internship.student_id},{
+    await Students.findByIdAndUpdate(
+      { _id: internship.student_id },
+      {
+        $push: {
+          intership_ids: {
+            internship_id: internship.id,
+          },
+        },
+      }
+    );
+
+    const student = await Students.findOne({ _id: internship.student_id });
+    await student.updateOne({
       $push:{
         intership_ids:{
           internship_id: internship.id
         }
       }
-    });
-
-    const student = await Students.findOne({_id: internship.student_id});
-    // await student.updateOne({
-    //   $push:{
-    //     intership_ids:{
-    //       internship_id: internship.id
-    //     }
-    //   }
-    // })
+    })
     res.status(200).json(student);
   } catch (err) {
     console.log(err);
