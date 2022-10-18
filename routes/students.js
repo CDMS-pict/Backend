@@ -163,7 +163,7 @@ const {
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/user", verifyToken, getUser);
-router.get("/refresh", refreshToken, verifyToken, getUser);
+// router.get("/refresh", refreshToken, verifyToken, getUser);
 router.post("/logout", verifyToken, logout);
 
 router.get("/getstudent", async (req, res) => {

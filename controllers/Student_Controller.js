@@ -46,18 +46,18 @@ const login = async (req, res, next) => {
     return res.status(400).json({ message: "Inavlid collegeId / Password" });
   }
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "35s",
+    expiresIn: "1h",
   });
 
   console.log("Generated Token\n", token);
 
-//   if (req.cookies[`${existingUser._id}`]) {
-//     req.cookies[`${existingUser._id}`] = "";
-//   }
+  //   if (req.cookies[`${existingUser._id}`]) {
+  //     req.cookies[`${existingUser._id}`] = "";
+  //   }
 
   res.cookie(String(existingUser._id), token, {
     path: "/",
-    expires: new Date(Date.now() + 1000 * 30), // 30 seconds
+    expires: new Date(Date.now() + 1000 * 60 * 60), // 30 seconds
     httpOnly: true,
     sameSite: "lax",
   });
@@ -98,6 +98,7 @@ const getUser = async (req, res, next) => {
 };
 const refreshToken = (req, res, next) => {
   const cookies = req.headers.cookie;
+  console.log(cookies);
   const prevToken = cookies.split("=")[1];
   if (!prevToken) {
     return res.status(400).json({ message: "Couldn't find token" });
@@ -139,7 +140,7 @@ const logout = (req, res, next) => {
       return res.status(403).json({ message: "Authentication failed" });
     }
     res.clearCookie(`${user.id}`);
-    req.cookies[`${user.id}`] = "";
+    // req.cookies[`${user.id}`] = "";
     return res.status(200).json({ message: "Successfully Logged Out" });
   });
 };
