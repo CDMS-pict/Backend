@@ -56,12 +56,12 @@ router.post("/newInternship", async (req, res) => {
 
     const student = await Students.findOne({ _id: internship.student_id });
     await student.updateOne({
-      $push:{
-        intership_ids:{
-          internship_id: internship.id
-        }
-      }
-    })
+      $push: {
+        intership_ids: {
+          internship_id: internship.id,
+        },
+      },
+    });
     res.status(200).json(student);
   } catch (err) {
     console.log(err);
