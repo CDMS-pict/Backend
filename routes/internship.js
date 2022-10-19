@@ -101,23 +101,39 @@ router.put("/updateInternship/:id", async (req, res) => {
     const internship_data = await Internship.findOne({
       _id: id,
     });
-    if (internship_data[0].student_id === req.body.student_id) {
-      await Internship.findOneAndUpdate(
+
+    const sid = req.body.student_id;
+    const { letter_of_complition } = req.body;
+    const file = letter_of_complition;
+    const studentup = await Students.findOne({ id: sid });
+    const result = await cloudinary.uploader.upload(file, {
+      folder: studentup.fullname + sid + "internship",
+    });
+    const data = {
+      letter_of_complition: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    };
+
+    console.log(data);
+    if (internship_data.student_id === sid) {
+      const intern = await Internship.findOneAndUpdate(
         {
           _id: id,
-          student_id: req.body.student_id,
         },
-        { $set: req.body }
+        { $push: data }
       );
+
+      // await intern.update({ data });
       const updated_internship_data = await Internship.findOne({
         _id: id,
-        student_id: req.body.student_id,
       });
+      console.log(intern);
       res.status(200).json(updated_internship_data);
     } else {
       res.status(404).json("You are not allowed to update the data");
     }
-    // res.status(200).json(internship_data[0].student_id === req.body.student_id);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -133,9 +149,8 @@ router.delete("/deleteInternship/:id", async (req, res) => {
       _id: id,
     });
     if (internship_data.student_id === req.body.student_id) {
-      await Internship.findOneAndDelete({
+      await internship_data.deleteOne({
         _id: id,
-        student_id: req.body.student_id,
       });
       res.status(200).json("Internship data has been deleted successfully ");
     } else {

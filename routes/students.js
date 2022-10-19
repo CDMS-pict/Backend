@@ -180,14 +180,14 @@ router.get("/getstudent", async (req, res) => {
   return res.status(200).json({ user });
 });
 
-router.put("/student/profile/update", async (req, res) => {
+router.put("/student/profile/update/:id", async (req, res) => {
   try {
-    const student = await Students.findOne({ collegeId: req.body.collegeId });
-    await student.updateOne({ $set: req.body });
+    const student = await Students.findByIdAndUpdate({ _id: req.params.id },{ $set: req.body });
+    // await student.update({ $set: req.body });
     const updatedstudent = await Students.findOne({
-      collegeId: req.body.collegeId,
+      _id: req.params.id,
     });
-    console.log("Profile has been updated successfully");
+    console.log(updatedstudent);
     res.status(200).json(updatedstudent);
   } catch (err) {
     console.log(err);

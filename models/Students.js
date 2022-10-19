@@ -17,42 +17,55 @@ var StudentSchema = new mongoose.Schema(
     },
     branch: {
       type: String,
+      default: ""
     },
     div: {
       type: String,
+      default: ""
     },
     rollno: {
       type: Number,
+      default: ""
     },
     sem1Sgpa: {
       type: Number,
+      default: 0
     },
     sem2Sgpa: {
       type: Number,
+      default: 0
     },
     sem3Sgpa: {
       type: Number,
+      default: 0
     },
     sem4Sgpa: {
       type: Number,
+      default: 0
     },
     sem5Sgpa: {
       type: Number,
+      default: 0
     },
     sem6Sgpa: {
       type: Number,
+      default: 0
     },
     sem7Sgpa: {
       type: Number,
+      default: 0
     },
     sem8Sgpa: {
       type: Number,
+      default: 0
     },
     permenant_Address: {
       type: String,
+      default: ""
     },
     temporary_address: {
       type: String,
+      default: ""
     },
     parent_Details: {
       type: Array,
@@ -63,30 +76,45 @@ var StudentSchema = new mongoose.Schema(
       default:[],
 
     },
+    mail:{
+      type:String,
+      default: ""
+    },
     DOB:{
-      type: Date
+      type: Date,
+      default: ""
     },
     blood_grp:{
-      type:String
+      type:String,
+      default: ""
     },
     mobile_no:{
-      type: Number
+      type: Number,
+      default: 0
     },
     gender:{
       type: String
+      ,
+      default: ""
     },
     category:{
       type: String
+      ,
+      default: ""
     },
     pan:{
-      type:String
+      type:String,
+      default: ""
     },
     aadhar:{
       type:String
+      ,
+      default: ""
     }
     ,
     PWD:{
       type:String,
+      default: ""
     },
     intership_ids:{
       type:Array,
@@ -95,41 +123,53 @@ var StudentSchema = new mongoose.Schema(
 
     father_name:{
       type:String,
+      default: ""
     },
     father_occupation:{
-      type:String
+      type:String,
+      default: ""
     },
     father_contact:{
-      type:String
+      type:String,
+      default: ""
     },
     father_mail:{
-      type:String
+      type:String,
+      default: ""
     },
 
     mother_name:{
       type:String,
+      default: ""
     },
     mother_occupation:{
-      type:String
+      type:String,
+      default: ""
     },
     mother_contact:{
-      type:String
+      type:String,
+      default: ""
     },
     mother_mail:{
-      type:String
+      type:String,
+      default: ""
     },
 
     tenth_p_c:{
-      type:String
+      type:String,
+      default: ""
     },
     twelth_p_c:{
-      type:String
+      type:String,
+      default: ""
     },
     tenth_p_c_url:{
-      type:String
+      type:String,
+      default: ""
     },
     twelth_p_c_url:{
-      type:String
+      type:String,
+      default: ""
     }
 
   },

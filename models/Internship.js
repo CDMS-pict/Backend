@@ -43,6 +43,7 @@ var InternshipSchema = new mongoose.Schema(
         type: String,
       },
     },
+   
     student_name: {
       type: String,
       required: true,
