@@ -200,13 +200,38 @@ router.put("/student/profile/update/:id", async (req, res) => {
   }
 });
 
+router.put("/student/profile/update_profile/:id", async (req, res) => {
+  try {
+    const student = await Students.findById({ _id: req.params.id });
+    const { profile } = req.body;
+    const file = profile;
+    const result = await cloudinary.uploader.upload(file, {
+      folder: "students/" + student.rollno + "_" + student.fullname,
+    });
+    const data = {};
+    console.log(data);
+    await student.updateOne({$set : {
+      profile: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      }}
+    });
+    const updatedstudent = await Students.findOne({
+      _id: req.params.id,
+    });
+    res.status(200).json(updatedstudent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 router.put("/student/profile/update_t_marks/:id", async (req, res) => {
   try {
     const student = await Students.findById({ _id: req.params.id });
     const { tenth_marksheet } = req.body;
     const file = tenth_marksheet;
     const result = await cloudinary.uploader.upload(file, {
-      folder: student.rollno + "_" + student.fullname,
+      folder: "students/" + student.rollno + "_" + student.fullname,
     });
     const data = {};
     console.log(data);
@@ -216,11 +241,9 @@ router.put("/student/profile/update_t_marks/:id", async (req, res) => {
         url: result.secure_url,
       }}
     });
-    // await student.update({ $set: req.body });
     const updatedstudent = await Students.findOne({
       _id: req.params.id,
     });
-    // console.log(updatedstudent);
     res.status(200).json(updatedstudent);
   } catch (err) {
     console.log(err);
@@ -234,7 +257,7 @@ router.put("/student/profile/update_tw_marks/:id", async (req, res) => {
     const { twelth_marksheet } = req.body;
     const file = twelth_marksheet;
     const result = await cloudinary.uploader.upload(file, {
-      folder: student.rollno + "_" + student.fullname,
+      folder: "students/" + student.rollno + "_" + student.fullname,
     });
     // const data = {
     //   twelth_marksheet: {

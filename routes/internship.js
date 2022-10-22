@@ -24,7 +24,7 @@ router.post("/newInternship", async (req, res) => {
     const file = offer_letter;
     const studentup = await Students.findOne({ _id: student_id });
     const result = await cloudinary.uploader.upload(file, {
-      folder: studentup.fullname + student_id + "internship",
+      folder: "internships/" + studentup.fullname + student_id ,
     });
     const newINternship = new Internship({
       company_name,
@@ -107,7 +107,7 @@ router.put("/updateInternship/:id", async (req, res) => {
     const file = letter_of_complition;
     const studentup = await Students.findOne({ _id: sid });
     const result = await cloudinary.uploader.upload(file, {
-      folder: studentup.rollno+"_"+studentup.fullname
+      folder: "internships/" + studentup.rollno+"_"+studentup.fullname
     });
     const data = {
       letter_of_complition: {

@@ -2,6 +2,14 @@ var mongoose = require("mongoose");
 
 var StudentSchema = new mongoose.Schema(
   {
+    profile:{
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
     fullname: {
       type: String,
       trim: true,
