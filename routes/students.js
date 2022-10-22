@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Students = require("../models/Students");
+const cloudinary = require("../utils/cloudinary");
+
 // const bcrypt = require("bcrypt");
 // const
 // const jwt = require("jsonwebtoken");
@@ -182,12 +184,76 @@ router.get("/getstudent", async (req, res) => {
 
 router.put("/student/profile/update/:id", async (req, res) => {
   try {
-    const student = await Students.findByIdAndUpdate({ _id: req.params.id },{ $set: req.body });
+    const student = await Students.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body }
+    );
     // await student.update({ $set: req.body });
     const updatedstudent = await Students.findOne({
       _id: req.params.id,
     });
     console.log(updatedstudent);
+    res.status(200).json(updatedstudent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.put("/student/profile/update_t_marks/:id", async (req, res) => {
+  try {
+    const student = await Students.findById({ _id: req.params.id });
+    const { tenth_marksheet } = req.body;
+    const file = tenth_marksheet;
+    const result = await cloudinary.uploader.upload(file, {
+      folder: student.rollno + "_" + student.fullname,
+    });
+    const data = {};
+    console.log(data);
+    await student.updateOne({$set : {
+      tenth_marksheet: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      }}
+    });
+    // await student.update({ $set: req.body });
+    const updatedstudent = await Students.findOne({
+      _id: req.params.id,
+    });
+    // console.log(updatedstudent);
+    res.status(200).json(updatedstudent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.put("/student/profile/update_tw_marks/:id", async (req, res) => {
+  try {
+    const student = await Students.findById({ _id: req.params.id });
+    const { twelth_marksheet } = req.body;
+    const file = twelth_marksheet;
+    const result = await cloudinary.uploader.upload(file, {
+      folder: student.rollno + "_" + student.fullname,
+    });
+    // const data = {
+    //   twelth_marksheet: {
+    //     public_id: result.public_id,
+    //     url: result.secure_url,
+    //   },
+    // };
+    // console.log(data);
+    await student.updateOne({$set : {
+      twelth_marksheet: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      }}
+    });
+    // await student.update({ $set: req.body });
+    const updatedstudent = await Students.findOne({
+      _id: req.params.id,
+    });
+    // console.log(updatedstudent);
     res.status(200).json(updatedstudent);
   } catch (err) {
     console.log(err);

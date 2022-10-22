@@ -17,161 +17,163 @@ var StudentSchema = new mongoose.Schema(
     },
     branch: {
       type: String,
-      default: ""
+      default: "",
     },
     div: {
       type: String,
-      default: ""
+      default: "",
     },
     rollno: {
       type: Number,
-      default: ""
+      default: "",
     },
     sem1Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem2Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem3Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem4Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem5Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem6Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem7Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     sem8Sgpa: {
       type: Number,
-      default: 0
+      default: 0,
     },
     permenant_Address: {
       type: String,
-      default: ""
+      default: "",
     },
     temporary_address: {
       type: String,
-      default: ""
+      default: "",
     },
     parent_Details: {
       type: Array,
       default: [],
     },
-    amcat:{
-      type:Array,
-      default:[],
-
+    amcat: {
+      type: Array,
+      default: [],
     },
-    mail:{
-      type:String,
-      default: ""
+    mail: {
+      type: String,
+      default: "",
     },
-    DOB:{
+    DOB: {
       type: Date,
-      default: ""
+      default: "",
     },
-    blood_grp:{
-      type:String,
-      default: ""
+    blood_grp: {
+      type: String,
+      default: "",
     },
-    mobile_no:{
+    mobile_no: {
       type: Number,
-      default: 0
+      default: 0,
     },
-    gender:{
-      type: String
-      ,
-      default: ""
+    gender: {
+      type: String,
+      default: "",
     },
-    category:{
-      type: String
-      ,
-      default: ""
+    category: {
+      type: String,
+      default: "",
     },
-    pan:{
-      type:String,
-      default: ""
+    pan: {
+      type: String,
+      default: "",
     },
-    aadhar:{
-      type:String
-      ,
-      default: ""
-    }
-    ,
-    PWD:{
-      type:String,
-      default: ""
+    aadhar: {
+      type: String,
+      default: "",
     },
-    intership_ids:{
-      type:Array,
-      default: []
+    PWD: {
+      type: String,
+      default: "",
+    },
+    intership_ids: {
+      type: Array,
+      default: [],
     },
 
-    father_name:{
-      type:String,
-      default: ""
+    father_name: {
+      type: String,
+      default: "",
     },
-    father_occupation:{
-      type:String,
-      default: ""
+    father_occupation: {
+      type: String,
+      default: "",
     },
-    father_contact:{
-      type:String,
-      default: ""
+    father_contact: {
+      type: String,
+      default: "",
     },
-    father_mail:{
-      type:String,
-      default: ""
-    },
-
-    mother_name:{
-      type:String,
-      default: ""
-    },
-    mother_occupation:{
-      type:String,
-      default: ""
-    },
-    mother_contact:{
-      type:String,
-      default: ""
-    },
-    mother_mail:{
-      type:String,
-      default: ""
+    father_mail: {
+      type: String,
+      default: "",
     },
 
-    tenth_p_c:{
-      type:String,
-      default: ""
+    mother_name: {
+      type: String,
+      default: "",
     },
-    twelth_p_c:{
-      type:String,
-      default: ""
+    mother_occupation: {
+      type: String,
+      default: "",
     },
-    tenth_p_c_url:{
-      type:String,
-      default: ""
+    mother_contact: {
+      type: String,
+      default: "",
     },
-    twelth_p_c_url:{
-      type:String,
-      default: ""
-    }
+    mother_mail: {
+      type: String,
+      default: "",
+    },
 
+    tenth_marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
+    twelth_marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
+    tenth_p_c: {
+      type: String,
+      default: "",
+    },
+    twelth_p_c: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

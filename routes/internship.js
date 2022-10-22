@@ -22,7 +22,7 @@ router.post("/newInternship", async (req, res) => {
   } = req.body;
   try {
     const file = offer_letter;
-    const studentup = await Students.findOne({ id: student_id });
+    const studentup = await Students.findOne({ _id: student_id });
     const result = await cloudinary.uploader.upload(file, {
       folder: studentup.fullname + student_id + "internship",
     });
@@ -105,9 +105,9 @@ router.put("/updateInternship/:id", async (req, res) => {
     const sid = req.body.student_id;
     const { letter_of_complition } = req.body;
     const file = letter_of_complition;
-    const studentup = await Students.findOne({ id: sid });
+    const studentup = await Students.findOne({ _id: sid });
     const result = await cloudinary.uploader.upload(file, {
-      folder: studentup.fullname + sid + "internship",
+      folder: studentup.rollno+"_"+studentup.fullname
     });
     const data = {
       letter_of_complition: {
@@ -139,6 +139,9 @@ router.put("/updateInternship/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
+
 
 // delete internship of a student by that student
 
