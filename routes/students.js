@@ -210,11 +210,13 @@ router.put("/student/profile/update_profile/:id", async (req, res) => {
     });
     const data = {};
     console.log(data);
-    await student.updateOne({$set : {
-      profile: {
-        public_id: result.public_id,
-        url: result.secure_url,
-      }}
+    await student.updateOne({
+      $set: {
+        profile: {
+          public_id: result.public_id,
+          url: result.secure_url,
+        },
+      },
     });
     const updatedstudent = await Students.findOne({
       _id: req.params.id,
@@ -235,11 +237,13 @@ router.put("/student/profile/update_t_marks/:id", async (req, res) => {
     });
     const data = {};
     console.log(data);
-    await student.updateOne({$set : {
-      tenth_marksheet: {
-        public_id: result.public_id,
-        url: result.secure_url,
-      }}
+    await student.updateOne({
+      $set: {
+        tenth_marksheet: {
+          public_id: result.public_id,
+          url: result.secure_url,
+        },
+      },
     });
     const updatedstudent = await Students.findOne({
       _id: req.params.id,
@@ -266,11 +270,13 @@ router.put("/student/profile/update_tw_marks/:id", async (req, res) => {
     //   },
     // };
     // console.log(data);
-    await student.updateOne({$set : {
-      twelth_marksheet: {
-        public_id: result.public_id,
-        url: result.secure_url,
-      }}
+    await student.updateOne({
+      $set: {
+        twelth_marksheet: {
+          public_id: result.public_id,
+          url: result.secure_url,
+        },
+      },
     });
     // await student.update({ $set: req.body });
     const updatedstudent = await Students.findOne({
