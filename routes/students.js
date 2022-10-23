@@ -227,6 +227,161 @@ router.put("/student/profile/update_profile/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// upload academic details
+router.put(
+  "/student/profile/academic_update/sem1/:year/:id",
+  async (req, res) => {
+    try {
+      const student = await Students.findById({ _id: req.params.id });
+      const year = req.params.year;
+      if (year === "FE") {
+        const { sem1Marksheet } = req.body;
+        const file = sem1Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem1Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "SE") {
+        const { sem3Marksheet } = req.body;
+        const file = sem3Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem3Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "TE") {
+        const { sem5Marksheet } = req.body;
+        const file = sem5Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem5Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "BE") {
+        const { sem7Marksheet } = req.body;
+        const file = sem7Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem7Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      }
+
+      const updatedstudent = await Students.findOne({
+        _id: req.params.id,
+      });
+      res.status(200).json(updatedstudent);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
+);
+
+
+router.put(
+  "/student/profile/academic_update/sem2/:year/:id",
+  async (req, res) => {
+    try {
+      const student = await Students.findById({ _id: req.params.id });
+      const year = req.params.year;
+      if (year === "FE") {
+        const { sem2Marksheet } = req.body;
+        const file = sem2Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem2Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "SE") {
+        const { sem4Marksheet } = req.body;
+        const file = sem4Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem4Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "TE") {
+        const { sem6Marksheet } = req.body;
+        const file = sem6Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem6Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      } else if (year === "BE") {
+        const { sem8Marksheet } = req.body;
+        const file = sem8Marksheet;
+        const result = await cloudinary.uploader.upload(file, {
+          folder: "students/" + student.rollno + "_" + student.fullname,
+        });
+        await student.updateOne({
+          $set: {
+            sem8Marksheet: {
+              public_id: result.public_id,
+              url: result.secure_url,
+            },
+          },
+        });
+      }
+
+      const updatedstudent = await Students.findOne({
+        _id: req.params.id,
+      });
+      res.status(200).json(updatedstudent);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
+);
+
+
+
 router.put("/student/profile/update_t_marks/:id", async (req, res) => {
   try {
     const student = await Students.findById({ _id: req.params.id });

@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var StudentSchema = new mongoose.Schema(
   {
-    profile:{
+    profile: {
       public_id: {
         type: String,
       },
@@ -39,33 +39,97 @@ var StudentSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    sem1Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
     sem2Sgpa: {
       type: Number,
       default: 0,
+    },
+    sem2Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
     sem3Sgpa: {
       type: Number,
       default: 0,
     },
+    sem3Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
     sem4Sgpa: {
       type: Number,
       default: 0,
+    },
+    sem4Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
     sem5Sgpa: {
       type: Number,
       default: 0,
     },
+    sem5Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
     sem6Sgpa: {
       type: Number,
       default: 0,
+    },
+    sem6Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
     sem7Sgpa: {
       type: Number,
       default: 0,
     },
+    sem7Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
     sem8Sgpa: {
       type: Number,
       default: 0,
+    },
+    sem8Marksheet: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
     permenant_Address: {
       type: String,

@@ -94,6 +94,20 @@ router.get("/getallStudentInternships/:id", async (req, res) => {
 });
 
 // update internship of a student by that student
+router.put("/updateInternshipInfo/:id",async(req,res)=>{
+  try{
+    const id = req.params.id;
+    await Internship.findByIdAndUpdate({
+      _id: id,
+    },
+    { $set: req.body }
+    );
+res.status(200).json("Updated Successfully");
+  }catch(err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 router.put("/updateInternship/:id", async (req, res) => {
   try {
@@ -122,7 +136,7 @@ router.put("/updateInternship/:id", async (req, res) => {
         {
           _id: id,
         },
-        { $push: data }
+        { $set: data }
       );
 
       // await intern.update({ data });
@@ -145,16 +159,15 @@ router.put("/updateInternship/:id", async (req, res) => {
 
 // delete internship of a student by that student
 
-router.delete("/deleteInternship/:id", async (req, res) => {
+router.delete("/deleteInternship/:stid/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const internship_data = await Internship.findOne({
       _id: id,
     });
-    if (internship_data.student_id === req.body.student_id) {
-      await internship_data.deleteOne({
-        _id: id,
-      });
+    const sti= req.params.stid;
+    if (internship_data.student_id === sti) {
+      await internship_data.deleteOne();
       res.status(200).json("Internship data has been deleted successfully ");
     } else {
       res.status(404).json("You are not allowed to delete the data");
