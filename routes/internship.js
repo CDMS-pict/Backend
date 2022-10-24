@@ -19,6 +19,7 @@ router.post("/newInternship", async (req, res) => {
     student_id,
     student_name,
     student_div,
+    student_roll
   } = req.body;
   try {
     const file = offer_letter;
@@ -40,6 +41,7 @@ router.post("/newInternship", async (req, res) => {
       student_id,
       student_name,
       student_div,
+      student_roll
     });
 
     const internship = await newINternship.save();
