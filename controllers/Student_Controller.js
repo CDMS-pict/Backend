@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
     expiresIn: "1h",
   });
 
-  console.log("Generated Token\n", token);
+  // console.log("Generated Token\n", token);
 
   //   if (req.cookies[`${existingUser._id}`]) {
   //     req.cookies[`${existingUser._id}`] = "";
@@ -69,15 +69,17 @@ const login = async (req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   const cookies = req.headers.cookie;
-  const token = cookies.split("=")[1];
+  let token = cookies.split("=")[2];
+  token = token.split(";")[0];
   if (!token) {
     res.status(404).json({ message: "No token found" });
   }
+ 
   jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
     if (err) {
       return res.status(400).json({ message: "Invalid TOken" });
     }
-    console.log(user.id);
+    // console.log(user.id);
     req.id = user.id;
   });
   next();
@@ -85,6 +87,7 @@ const verifyToken = (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   const userId = req.id;
+  console.log(userId);
   let user;
   try {
     user = await User.findById(userId, "-password");
@@ -130,7 +133,9 @@ const refreshToken = (req, res, next) => {
 
 const logout = (req, res, next) => {
   const cookies = req.headers.cookie;
-  const prevToken = cookies.split("=")[1];
+  let prevToken = cookies.split("=")[2];
+  prevToken = prevToken.split(";")[0];
+  // console.log(cookies + "\n\n" + prevToken);
   if (!prevToken) {
     return res.status(400).json({ message: "Couldn't find token" });
   }
