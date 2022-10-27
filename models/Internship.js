@@ -52,6 +52,14 @@ var InternshipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    student_branch:{
+      type:String,
+      required: true
+    },
+    student_year:{
+      type:String,
+      required: true
+    },
     student_roll: {
       type: Number,
       required: true,

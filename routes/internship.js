@@ -19,7 +19,9 @@ router.post("/newInternship", async (req, res) => {
     student_id,
     student_name,
     student_div,
-    student_roll
+    student_roll,
+    student_branch,
+    student_year
   } = req.body;
   try {
     const file = offer_letter;
@@ -41,7 +43,9 @@ router.post("/newInternship", async (req, res) => {
       student_id,
       student_name,
       student_div,
-      student_roll
+      student_roll,
+      student_branch,
+      student_year
     });
 
     const internship = await newINternship.save();
@@ -82,6 +86,58 @@ router.get("/getallInternships", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get("/getbydiv",async(req,res)=>{
+  try{
+    const div = req.body.div;
+    const internships = await Internship.find({student_div: div});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Unable To Fetch");
+  }
+})
+router.get("/getbyyear",async(req,res)=>{
+  try{
+    const year = req.body.year;
+    const internships = await Internship.find({student_year: year});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Unable To Fetch");
+  }
+})
+
+
+// get internships by name
+router.get("/getbyname",async(req,res)=>{
+  try{
+    const studentName = req.body.fullname;
+    const internships = await Internship.find({student_name: studentName});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Somenthing Went's Wrong");
+  }
+})
+
+
+// get by branch
+router.get("/getbybranch",async(req,res)=>{
+  try{
+    const branch = req.body.branch;
+    const internships = await Internship.find({student_branch: branch});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Somenthing Went's Wrong");
+  }
+})
+
 
 // get internship by student id
 
